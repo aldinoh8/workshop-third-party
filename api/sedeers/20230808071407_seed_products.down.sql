@@ -1,0 +1,1 @@
+TRUNCATE TABLE product_images, products RESTART IDENTITY CASCADE;
