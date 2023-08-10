@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { NavLink, useParams } from "react-router-dom"
 import { formatter as numberWithCommas } from "../helpers/currency"
 import axios from 'axios'
-import provinceData from "../helpers/provinceData"
+import Shipping from "../components/Shipping"
 
 const Detail = () => {
   const { id } = useParams();
@@ -16,6 +16,7 @@ const Detail = () => {
       setMainImg(data.images[0])
     }
   })
+
 
   if(isLoading) return 'Loading ...'
   if(error) return 'An error has occured: ' + error.message
@@ -54,32 +55,7 @@ const Detail = () => {
             </div>
 
             <div className="mt-10 w-full flex flex-col justify-between gap-1 border-t pt-4">
-              <p className="text-bold font-medium">Shipping Fee</p>
-              <p className="text-xs font-thin text-slate-500">Please note that shipping fees may vary based on the destination, weight, and dimensions of the items in your cart. The provided estimates are subject to change based on the finalization of your order.</p>
-              <div className="flex gap-2 mt-4">
-                <select 
-                  id="countries" 
-                  className="appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
-                  defaultValue="default"
-                >
-                  <option value="default" disabled>Choose a Province</option>
-                  {provinceData.map(p => {
-                    return <option key={p.province_id} value={p.province_id}>{p.province}</option>
-                  })}
-                </select>
-                <select 
-                  id="countries" 
-                  className="appearance-none bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5"
-                  defaultValue="default"
-                >
-                  <option value="default" disabled>Choose a City</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
-                </select>
-              </div>
-              <p className="cursor-pointer font-medium text-sm text-blue-700 mt-0">Get Shipping Fee</p>
+              <Shipping product={product.data}/>
             </div>
 
             <div className="mt-10 w-full flex">
